@@ -57,4 +57,5 @@ main(void)
 
 		printf("%s\n", name);
 	}
+	free(name);
 }
