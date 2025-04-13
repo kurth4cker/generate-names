@@ -41,8 +41,8 @@ main(void)
 {
 	srand(time(NULL));
 
-        char *const name = calloc(WORD_NAME_MAX + 1, sizeof(char));
-        for (size_t name_count = 0; name_count < 16; name_count++) {
+	char *const name = calloc(WORD_NAME_MAX + 1, sizeof(char));
+	for (size_t name_count = 0; name_count < 16; name_count++) {
 		const size_t name_len = rand() % 5 + 3;
 		name[name_len] = '\0';
 		name[0] = random_lower();
