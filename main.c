@@ -41,9 +41,10 @@ main(void)
 {
 	srand(time(NULL));
 
-	for (size_t name_count = 0; name_count < 16; name_count++) {
+        char *const name = calloc(WORD_NAME_MAX + 1, sizeof(char));
+        for (size_t name_count = 0; name_count < 16; name_count++) {
 		const size_t name_len = rand() % 5 + 3;
-		char *const name = calloc(WORD_NAME_MAX + 1, sizeof(char));
+		name[name_len] = '\0';
 		name[0] = random_lower();
 		for (size_t i = 1; i < name_len; i++) {
 			if (is_vow(name[i-1])) {
@@ -55,6 +56,5 @@ main(void)
 		}
 
 		printf("%s\n", name);
-		free(name);
 	}
 }
