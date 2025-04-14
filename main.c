@@ -12,28 +12,16 @@ const size_t WORD_NAME_MAX = 16;
 const char VOWS[] = "aeiou";
 const char CONS[] = "bcdfghjklmnpqrstvwxyz";
 
-static bool
-is_vow(int ch)
-{
-	return strchr(VOWS, ch) != NULL;
-}
-
 static int
-random_con(void)
+random_char(const char *chars)
 {
-	return CONS[rand() % strlen(CONS)];
+	return chars[rand() % strlen(chars)];
 }
 
 static int
 random_lower(void)
 {
 	return rand() % ('z'-'a') + 'a';
-}
-
-static int
-random_vow(void)
-{
-	return VOWS[rand() % strlen(VOWS)];
 }
 
 int
@@ -47,11 +35,11 @@ main(void)
 		name[name_len] = '\0';
 		name[0] = random_lower();
 		for (size_t i = 1; i < name_len; i++) {
-			if (is_vow(name[i-1])) {
-				name[i] = random_con();
+			if (strchr(VOWS, name[i-1])) {
+				name[i] = random_char(CONS);
 			}
 			else {
-				name[i] = random_vow();
+				name[i] = random_char(VOWS);
 			}
 		}
 
