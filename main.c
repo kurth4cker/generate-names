@@ -13,6 +13,7 @@
 
 typedef struct {
 	size_t name_count;
+	size_t name_min, name_max;
 } Config;
 
 static void *
@@ -46,9 +47,10 @@ print_names(Config cfg)
 
 	srand(time(NULL));
 
-	char *const name = xcalloc( + 1, sizeof(char));
-	while (cfg.name_count--) {
-		const size_t name_len = rand() % 5 + 3;
+	char *const name = xcalloc(12, sizeof(char));
+	for (size_t i = 0; i < cfg.name_count; i++) {
+		// TODO: needs review, there is segfaults sometimes
+		const size_t name_len = rand() % (cfg.name_max - cfg.name_min) + cfg.name_min;
 		name[name_len] = '\0';
 		name[0] = random_lower();
 		for (size_t i = 1; i < name_len; i++) {
@@ -70,13 +72,21 @@ main(int argc, char **argv)
 {
 	Config cfg = {
 		.name_count = 8,
+		.name_min = 3,
+		.name_max = 8,
 	};
 
 	int opt;
-	while ((opt = getopt(argc, argv, "n:")) != -1) {
+	while ((opt = getopt(argc, argv, "n:m:M:")) != -1) {
 		switch (opt) {
 		case 'n':
 			sscanf(optarg, "%zu", &cfg.name_count);
+			break;
+		case 'm':
+			sscanf(optarg, "%zu", &cfg.name_max);
+			break;
+		case 'M':
+			sscanf(optarg, "%zu", &cfg.name_min);
 			break;
 		}
 	}
