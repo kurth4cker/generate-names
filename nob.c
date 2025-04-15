@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <unistd.h>
 
 #define NOB_IMPLEMENTATION
 #define NOB_EXPERIMENTAL_DELETE_OLD
@@ -33,13 +34,16 @@ run(void)
 }
 
 int
-main(int argc, const char **argv)
+main(int argc, char **argv)
 {
 	NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "nob.h");
 
 	bool isrun = false;
-	for (int i = 1; i < argc; i++) {
-		if (0 == strcmp(argv[i], "-r")) {
+
+	int opt;
+	while ((opt = getopt(argc, argv, "r")) != -1) {
+		switch (opt) {
+		case 'r':
 			isrun = true;
 		}
 	}
