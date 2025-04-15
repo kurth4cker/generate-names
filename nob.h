@@ -522,7 +522,7 @@ bool nob_set_current_dir(const char *path);
 //   do not recommend since the whole idea of NoBuild is to keep the process of bootstrapping
 //   as simple as possible and doing all of the actual work inside of ./nob)
 //
-void nob__go_rebuild_urself(int argc, char **argv, const char *source_path, ...);
+void nob__go_rebuild_urself(int argc, const char **argv, const char *source_path, ...);
 #define NOB_GO_REBUILD_URSELF(argc, argv) nob__go_rebuild_urself(argc, argv, __FILE__, NULL)
 // Sometimes your nob.c includes additional files, so you want the Go Rebuild Urself™ Technology to check
 // if they also were modified and rebuild nob.c accordingly. For that we have NOB_GO_REBUILD_URSELF_PLUS():
@@ -684,7 +684,7 @@ char *nob_win32_error_message(DWORD err) {
 #endif // _WIN32
 
 // The implementation idea is stolen from https://github.com/zhiayang/nabs
-void nob__go_rebuild_urself(int argc, char **argv, const char *source_path, ...)
+void nob__go_rebuild_urself(int argc, const char **argv, const char *source_path, ...)
 {
     const char *binary_path = nob_shift(argv, argc);
 #ifdef _WIN32

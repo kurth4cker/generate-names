@@ -33,9 +33,19 @@ run(void)
 }
 
 int
-main(int argc, char **argv)
+main(int argc, const char **argv)
 {
-	NOB_GO_REBUILD_URSELF(argc, argv);
+	NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "nob.h");
+
+	bool isrun = false;
+	for (int i = 1; i < argc; i++) {
+		if (0 == strcmp(argv[i], "-r")) {
+			isrun = true;
+		}
+	}
 
 	build();
+	if (isrun) {
+		run();
+	}
 }
