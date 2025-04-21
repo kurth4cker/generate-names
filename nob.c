@@ -5,6 +5,10 @@
 #define NOB_EXPERIMENTAL_DELETE_OLD
 #include "nob.h"
 
+typedef struct {
+	bool run;
+} Config;
+
 static void
 build(void)
 {
@@ -38,18 +42,19 @@ main(int argc, char **argv)
 {
 	NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "nob.h");
 
-	bool isrun = false;
-
+	Config cfg = {
+		.run = false,
+	};
 	int opt;
 	while ((opt = getopt(argc, argv, "r")) != -1) {
 		switch (opt) {
 		case 'r':
-			isrun = true;
+			cfg.run = true;
 		}
 	}
 
 	build();
-	if (isrun) {
+	if (cfg.run) {
 		run();
 	}
 }
