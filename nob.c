@@ -10,9 +10,9 @@ typedef struct {
 } Config;
 
 static void
-build(void)
+build(Nob_Cmd *cmd)
 {
-	Nob_Cmd *cmd = &(Nob_Cmd){ 0 };
+	cmd->count = 0;
 	nob_cmd_append(cmd, "cc");
 	nob_cmd_append(cmd, "-std=c11");
 	nob_cmd_append(cmd, "-g");
@@ -27,9 +27,9 @@ build(void)
 }
 
 static void
-run(void)
+run(Nob_Cmd *cmd)
 {
-	Nob_Cmd *cmd = &(Nob_Cmd){ 0 };
+	cmd->count = 0;
 	nob_cmd_append(cmd, "./generate-names");
 
 	if (!nob_cmd_run_sync(*cmd)) {
@@ -45,6 +45,7 @@ main(int argc, char **argv)
 	Config cfg = {
 		.run = false,
 	};
+
 	int opt;
 	while ((opt = getopt(argc, argv, "r")) != -1) {
 		switch (opt) {
@@ -53,8 +54,11 @@ main(int argc, char **argv)
 		}
 	}
 
-	build();
+	Nob_Cmd cmd = { 0 };
+	build(&cmd);
 	if (cfg.run) {
-		run();
+		run(&cmd);
 	}
+
+	nob_cmd_free(cmd);
 }
