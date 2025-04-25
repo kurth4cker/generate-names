@@ -42,7 +42,7 @@ random_name(Config cfg)
 	const char VOWS[] = "aeiou";
 	const char CONS[] = "bcdfghjklmnpqrstvwxyz";
 
-	static char name[NAME_LENGTH_MAX] = { };
+	static char name[NAME_LENGTH_MAX] = { 0 };
 
 	const size_t name_len = random_range(cfg.name_min, cfg.name_max);
 	name[name_len] = '\0';
@@ -78,6 +78,7 @@ help(void)
 	fprintf(stderr, "options:\n");
 	fprintf(stderr, "    -n <name-count>        count of names to generate (default: 8)\n");
 	fprintf(stderr, "    -m <max-name-length>   max length of generated names, exclusive (default: 8)\n");
+	fprintf(stderr, "    -h                     display this help and exit\n");
 }
 
 int
