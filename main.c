@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: ISC
 // SPDX-FileCopyrightText: 2025 kurth4cker <kurth4cker@gmail.com>
 
-#define _POSIX_C_SOURCE 2
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
