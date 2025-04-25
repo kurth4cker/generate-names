@@ -18,6 +18,12 @@ Then copy resultant binary to whatever you want. Generally it becomes
 `/usr/local/bin` or `$HOME/.local/bin`.
 
 
+## Usage
+
+Just run **generate-names**. It will print names to the standard output. For
+options see `generate-names -h`.
+
+
 ## Copying
 
 Licensed under the terms of ISC. See file COPYING for details.
