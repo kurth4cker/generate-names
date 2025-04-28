@@ -15,12 +15,11 @@ build(Nob_Cmd *cmd)
 	cmd->count = 0;
 	nob_cmd_append(cmd, "cc");
 	nob_cmd_append(cmd, "-std=c11");
-	nob_cmd_append(cmd, "-D_POSIX_C_SOURCE=2");
 	nob_cmd_append(cmd, "-g");
 	nob_cmd_append(cmd, "-Wall", "-Wextra");
 	nob_cmd_append(cmd, "-Werror");
 	nob_cmd_append(cmd, "-o", "generate-names");
-	nob_cmd_append(cmd, "main.c");
+	nob_cmd_append(cmd, "main.c", "flag.c");
 
 	if (!nob_cmd_run_sync(*cmd)) {
 		exit(EXIT_FAILURE);

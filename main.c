@@ -7,8 +7,9 @@
 #include <string.h>
 #include <time.h>
 #include <errno.h>
-#include <unistd.h>
 #include <assert.h>
+
+#include "flag.h"
 
 #define NAME_LENGTH_MAX 16
 
@@ -71,39 +72,35 @@ print_names(Config cfg)
 }
 
 static void
-help(void)
+usage(FILE *out)
 {
-	fprintf(stderr, "usage: generate-names [options]\n");
-	fprintf(stderr, "\n");
-	fprintf(stderr, "options:\n");
-	fprintf(stderr, "    -n <name-count>        count of names to generate (default: 8)\n");
-	fprintf(stderr, "    -m <max-name-length>   max length of generated names, exclusive (default: 8)\n");
-	fprintf(stderr, "    -h                     display this help and exit\n");
+	fprintf(out, "usage: generate-names [options]\n");
+	fprintf(out, "\n");
+	fprintf(out, "options:\n");
+	flag_print_options(out);
 }
 
 int
 main(int argc, char **argv)
 {
-	Config cfg = {
-		.name_count = 8,
-		.name_min = 3,
-		.name_max = 8,
-	};
-
-	int opt;
-	while ((opt = getopt(argc, argv, "hn:m:")) != -1) {
-		switch (opt) {
-		case 'n':
-			sscanf(optarg, "%zu", &cfg.name_count);
-			break;
-		case 'm':
-			sscanf(optarg, "%zu", &cfg.name_max);
-			break;
-		case 'h':
-			help();
-			exit(EXIT_SUCCESS);
-		}
+	const bool *help = flag_bool("h", false, "print this help to stdout and exit");
+	const size_t *name_count = flag_size("c", 8, "count of names to generate");
+	if (!flag_parse(argc, argv)) {
+		usage(stderr);
+		flag_print_error(stderr);
+		exit(EXIT_FAILURE);
 	}
+
+	if (*help) {
+		usage(stdout);
+		exit(EXIT_SUCCESS);
+	}
+
+	Config cfg = {
+		.name_count = *name_count,
+		.name_min = 3,
+		.name_max = 7,
+	};
 
 	print_names(cfg);
 }
