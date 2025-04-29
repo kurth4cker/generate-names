@@ -85,6 +85,7 @@ main(int argc, char **argv)
 {
 	const bool *help = flag_bool("h", false, "print this help to stdout and exit");
 	const size_t *name_count = flag_size("c", 8, "count of names to generate");
+	const size_t *name_max = flag_size("m", 7, "max length of names, exclusive");
 	if (!flag_parse(argc, argv)) {
 		usage(stderr);
 		flag_print_error(stderr);
@@ -99,7 +100,7 @@ main(int argc, char **argv)
 	Config cfg = {
 		.name_count = *name_count,
 		.name_min = 3,
-		.name_max = 7,
+		.name_max = *name_max,
 	};
 
 	print_names(cfg);
