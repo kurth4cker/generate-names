@@ -72,7 +72,7 @@ jobs:
         run: ./generate-names
 
   macos:
-    runs-on: macos-lates
+    runs-on: macos-latest
     steps:
       - name: Install Dependencies
         run: brew install gcc
