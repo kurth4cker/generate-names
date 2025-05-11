@@ -1,22 +1,90 @@
-name: C/C++ CI
+name: C
 
 on:
   push:
     branches:
       - "trunk"
   pull_request:
-    branches:
-      - "trunk"
+  workflow_dispatch:
 
 jobs:
-  build:
-
+  alpine:
     runs-on: ubuntu-latest
+    container: alpine:latest
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: apk add gcc libc-dev
 
-    - name: bootstrap nob
-      run: cc -Werror -o nob nob.c
-    - name: build
-      run: ./nob
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -Werror -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+      - name: Run Program
+        run: ./generate-names
+
+
+  debian:
+    runs-on: ubuntu-latest
+    container: debian:latest
+
+    steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y gcc
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -Werror -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+      - name: Run Program
+        run: ./generate-names
+
+
+  void-glibc:
+    runs-on: ubuntu-latest
+    container: ghcr.io/void-linux/void-glibc:latest
+    steps:
+      - name: Install dependencies
+        run: xbps-install -Sy git gcc
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -Werror -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+      - name: Run Program
+        run: ./generate-names
+
+  macos:
+    runs-on: macos-lates
+    steps:
+      - name: Install Dependencies
+        run: brew install gcc
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -Werror -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+      - name: Run Program
+        run: ./generate-names
