@@ -74,8 +74,9 @@ jobs:
   macos:
     runs-on: macos-latest
     steps:
-      - name: Install Dependencies
-        run: brew install gcc
+      # Note: gcc is already installed on macos runner
+      # - name: Install Dependencies
+      #   run: brew install gcc
 
       - name: Checkout repository
         uses: actions/checkout@v4
