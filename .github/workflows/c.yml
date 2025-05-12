@@ -21,6 +21,11 @@ jobs:
             image: alpine:latest
             install: apk add gcc libc-dev
 
+          - os: debian
+            cc: gcc
+            image: debian:latest
+            install: apt update && apt install -y gcc
+
     env:
       CC: ${{ matrix.cc }}
       CFLAGS: -Wall -Wextra -Werror
@@ -34,27 +39,6 @@ jobs:
 
       - name: Bootstrap nob
         run: $CC $CFLAGS -o nob nob.c
-
-      - name: Build
-        run: ./nob
-
-      - name: Run Program
-        run: ./generate-names
-
-
-  alpine:
-    runs-on: ubuntu-latest
-    container: alpine:latest
-
-    steps:
-      - name: Install Dependencies
-        run: apk add gcc libc-dev
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Bootstrap nob
-        run: cc -Werror -o nob nob.c
 
       - name: Build
         run: ./nob
