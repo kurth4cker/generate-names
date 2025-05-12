@@ -10,10 +10,20 @@ typedef struct {
 } Config;
 
 static void
+cc(Nob_Cmd *cmd)
+{
+	const char *cc = getenv("CC");
+	if (cc == NULL) {
+		cc = "cc";
+	}
+	nob_cmd_append(cmd, cc);
+}
+
+static void
 build(Nob_Cmd *cmd)
 {
 	cmd->count = 0;
-	nob_cmd_append(cmd, "cc");
+	cc(cmd);
 	nob_cmd_append(cmd, "-std=c11");
 	nob_cmd_append(cmd, "-g");
 	nob_cmd_append(cmd, "-Wall", "-Wextra");
