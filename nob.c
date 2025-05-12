@@ -12,7 +12,10 @@ typedef struct {
 static void
 cc(Nob_Cmd *cmd)
 {
-	const char *cc = getenv("CC");
+	static const char *cc = NULL;
+	if (cc == NULL) {
+		cc = getenv("CC");
+	}
 	if (cc == NULL) {
 		cc = "cc";
 	}
