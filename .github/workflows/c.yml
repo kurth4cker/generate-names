@@ -26,6 +26,11 @@ jobs:
             image: debian:latest
             install: apt update && apt install -y gcc
 
+          - os: debian
+            cc: clang
+            image: debian:latest
+            install: apt update && apt install -y clang
+
     env:
       CC: ${{ matrix.cc }}
       CFLAGS: -Wall -Wextra -Werror
