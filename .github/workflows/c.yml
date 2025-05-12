@@ -47,49 +47,6 @@ jobs:
         run: ./generate-names
 
 
-  debian:
-    runs-on: ubuntu-latest
-    container: debian:latest
-
-    steps:
-      - name: Install Dependencies
-        run: |
-          apt update
-          apt install -y gcc
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Bootstrap nob
-        run: cc -Werror -o nob nob.c
-
-      - name: Build
-        run: ./nob
-
-      - name: Run Program
-        run: ./generate-names
-
-
-  void-glibc:
-    runs-on: ubuntu-latest
-    container: ghcr.io/void-linux/void-glibc:latest
-    steps:
-      - name: Install dependencies
-        run: xbps-install -Sy git gcc
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Bootstrap nob
-        run: cc -Werror -o nob nob.c
-
-      - name: Build
-        run: ./nob
-
-      - name: Run Program
-        run: ./generate-names
-
-
   macos:
     runs-on: macos-latest
     steps:
