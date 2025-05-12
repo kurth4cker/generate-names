@@ -16,10 +16,10 @@ jobs:
     strategy:
       matrix:
         include:
-          os: alpine
-          cc: gcc
-          image: alpine:latest
-          install: apk add gcc libc-dev
+          - os: alpine
+            cc: gcc
+            image: alpine:latest
+            install: apk add gcc libc-dev
 
     env:
       CC: ${{ matrix.cc }}
