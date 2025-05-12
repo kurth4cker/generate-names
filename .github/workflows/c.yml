@@ -8,6 +8,40 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    name: ${{ matrix.os }} / ${{ matrix.cc }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+
+    strategy:
+      matrix:
+        include:
+          os: alpine
+          cc: gcc
+          image: alpine:latest
+          install: apk add gcc libc-dev
+
+    env:
+      CC: ${{ matrix.cc }}
+      CFLAGS: -Wall -Wextra -Werror
+
+    steps:
+      - name: Install Dependencies
+        run: ${{ matrix.install }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: $CC $CFLAGS -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+      - name: Run Program
+        run: ./generate-names
+
+
   alpine:
     runs-on: ubuntu-latest
     container: alpine:latest
