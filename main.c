@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <assert.h>
 
+#define FLAG_IMPLEMENTATION
 #include "flag.h"
 
 #define NAME_LENGTH_MAX 16

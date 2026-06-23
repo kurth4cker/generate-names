@@ -32,7 +32,7 @@ build(Nob_Cmd *cmd)
 	nob_cmd_append(cmd, "-Wall", "-Wextra");
 	nob_cmd_append(cmd, "-Werror");
 	nob_cmd_append(cmd, "-o", "generate-names");
-	nob_cmd_append(cmd, "main.c", "flag.c");
+	nob_cmd_append(cmd, "main.c");
 
 	if (!nob_cmd_run_sync(*cmd)) {
 		exit(EXIT_FAILURE);
