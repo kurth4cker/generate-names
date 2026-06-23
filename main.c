@@ -10,7 +10,7 @@
 #include <assert.h>
 
 #define FLAG_IMPLEMENTATION
-#include "flag.h"
+#include "vendor/flag.h"
 
 #define NAME_LENGTH_MAX 16
 

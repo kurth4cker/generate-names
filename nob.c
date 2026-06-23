@@ -3,7 +3,7 @@
 
 #define NOB_IMPLEMENTATION
 #define NOB_EXPERIMENTAL_DELETE_OLD
-#include "nob.h"
+#include "vendor/nob.h"
 
 typedef struct {
 	bool run;
@@ -53,7 +53,7 @@ run(Nob_Cmd *cmd)
 int
 main(int argc, char **argv)
 {
-	NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "nob.h");
+	NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "vendor/nob.h");
 
 	Config cfg = {
 		.run = false,
